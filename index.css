@@ -1,0 +1,29 @@
+td.coverImage{
+   
+    border-collapse: collapse;
+    background-color: #FFF;
+    height: 100px;
+    width: 70px;
+    color: #EFEFEF;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+td.coverImage, td.description {
+    
+    
+    border-collapse: collapse;
+    vertical-align: top;
+    
+    
+}
+img.bookCover {
+    height: 150px;
+    width: 150px;
+}
+img.detailedimage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

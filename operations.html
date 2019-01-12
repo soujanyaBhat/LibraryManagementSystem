@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<head>
+<link href="css.css" type="text/css" rel="stylesheet"/>
+<title>User home</title>
+<style>
+li  {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+a
+{
+ color: black; 
+}
+</style>
+</head>
+<body background="library.jpg">
+<header>
+  <h1>User home page</h1> 
+</header>
+<div class="header">Below are the operations you can do on this application 
+  <form action="logout.php" method="post">
+  <input type="checkbox" name="logout" value="Ok" />
+  <input type="submit" name="formSubmit" value="Logout" />
+</form></div> 
+<?php
+echo "Logged in as ".$_SESSION['login_user']."";
+?>
+<div id="menu">
+ <ul style="list-style-type:disc">
+  <li>Search for a book</li>
+  <li>Look at the details</li>
+  <li>Add to cart</li>
+  <li>Check out a book</li>
+  <li>Remove a book from cart</li>
+  <li>Look at the history of books taken by you</li>
+</ul>
+</div>
+<div class="footer">
+  <h5>Copyright @ Kishan/Akshay</h5>
+</div>
+</body>
+</html>

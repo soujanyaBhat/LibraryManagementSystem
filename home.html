@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Library - The University of Texas at Dallas</title>
+<link href="a1.css" type="text/css" rel="stylesheet">
+<link href="css.css" type="text/css" rel="stylesheet">
+<link href="UTDmono.png" type="image/png" rel="shortcut icon">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<meta name="description" content="Eugene McDermot Library">
+<meta name="keywords" content="university, texas, dallas, library, book, novels, reading, eugene, mcdermot, news, events">
+<script src="https://code.jquery.com/jquery-1.7.min.js"></script>
+<script src="registration.js"></script>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: grey;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 11px;
+    font-style: italic;
+
+    /* Position the tooltip 
+        /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;    
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.not-exists{
+   color: green;
+}
+
+.exists{
+    color: red;
+}
+</style>
+<script>
+$(document).ready(function(){
+$("#txt_uname").keyup(function(){
+var uname = $("#txt_uname").val().trim();
+if(uname != ''){
+$("#uname_response").show();
+$.ajax({
+            url: 'emailcheck.php',
+            type: 'post',
+            data: {uname:uname},
+            success: function(response){
+
+                if(response > 0){
+                    $("#uname_response").html("<span class='exists'>* Username Already in use</span>");
+                }else{
+                    $("#uname_response").html("<span class='not-exists'>Available</span>");
+                }
+
+             }
+
+          });
+      }else{
+         $("#uname_response").hide();
+      }
+
+    });
+
+ });
+</script>
+<script>
+$(document).ready(function(){
+$("#txt_email").keyup(function(){
+var email = $("#txt_email").val().trim();
+if(email != ''){
+$("#email_response").show();
+$.ajax({
+            url: 'usercheck.php',
+            type: 'post',
+            data: {email:email},
+            success: function(response){
+
+                if(response > 0){
+                    $("#email_response").html("<span class='exists'>*Email Already in use</span>");
+                }else{
+                    $("#email_response").html("<span class='not-exists'>Available</span>");
+                }
+
+             }
+
+          });
+      }else{
+         $("#email_response").hide();
+      }
+
+    });
+
+ });
+</script>
+<script>
+function validateForm() {
+  var regex = /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[#?!@$%^&*\-_]).{8,}$/;
+  var pwcheck=document.getElementById("password").value;
+    if (pwcheck.length > 7) 
+    {
+      if (regex.test(pwcheck)) 
+        return true;
+
+      else 
+      {
+        $('#password').css('border-color', 'red'); 
+        var errmssg = "Please correct password";
+        document.getElementById("error").innerHTML = errmssg;
+        return false;
+      }
+    }
+    else
+    {
+      $('#password').css('border-color', 'red');
+      var errmssg = "Please correct password";
+      document.getElementById("error").innerHTML = errmssg;
+      return false; 
+    } 
+}
+</script>
+</head>
+  <header>
+  <h1>Eugene McDermot Library</h1>
+  <h> 
+    <br>
+    <form action="signupsignin.php" method="GET" align="right">
+      <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required="">
+        <label for="password">Password :</label>
+        <input type="password" name="password" id="pword" required="">
+        <input type="submit" value="Login">
+    </form>
+  </h>
+</header>
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark">
+  <a class="nav-link" href="https://www.utdallas.edu/library/about-the-library/">About</a>
+  <a class="nav-link" href="https://www.utdallas.edu/library/services/">Services</a>
+  <a class="nav-link" href="https://www.utdallas.edu/library/staff/">Contact</a>
+</nav>
+   
+<div class="container-fluid text-center">
+   <div class="row content">
+   
+    <div class="col-lg-9">
+      <h5 align="center">Sign up</h5>
+        <form  name="homeregister" action="register.php" onsubmit="return validateForm()" method="GET" align="center">
+          <div>
+            <p id="error" class="error"></p>
+          </div>
+          <div>
+            <input type="text" class="textbox" id="txt_uname" name="txt_uname" placeholder="Username">
+            <div id="uname_response" class="response"></div>
+          </div>
+          <br>
+          <div>
+            <input type="text" class="textbox" id="txt_email" name="txt_email" placeholder="email" required="">
+            <div id="email_response" class="response"></div>
+          </div>
+          <br>
+          <div>
+            <input type="password" data-toggle="tooltip" data-placement="right" data-html="true" title="1. Password should be at least 8 characters long.&#013;2. Use at least one uppercase letter, number and special character in your password" name="password" id="password" placeholder="password" required>
+          </div>
+            <span id="result"></span>
+          <br>
+          <input type="text" name="phone" id="phone" placeholder="phone" required="">
+          <br>
+          <br>
+          <input type="submit" name="register" id="register" value="Register">
+        </form>
+  <hr>
+    <p>Library News</p>
+    <p><a href="https://www.utdallas.edu/library/news/eugene-mcdermott-library-opens-new-art-gallery-with-ut-dallas-presidents-photo-collection/">Eugene McDermott Library Opens New Art Gallery With UT Dallas President’s Photo Collection</a></p>
+      <p><a href="https://www.utdallas.edu/library/news/ribbon-cutting-marks-opening-of-mcdermott-librarys-new-smart-rooms/">Ribbon Cutting Marks Opening of McDermott Library’s New Smart Rooms</a></p>
+      <p><a href="https://www.utdallas.edu/library/news/meet-your-librarian-2/">Meet Your Librarian</a></p>
+
+  </div>
+  <div class="col-lg-3 text-left">
+      <p>Upcoming Events</p>
+      
+      <p><a href="https://www.utdallas.edu/calendar/event.php?id=1220442157&amp;WT.mc_id=CalendarFeed">Unlocking Research Money: Finding Grant and Fellowship Funding Today</a></p>
+      <p><a href="https://www.utdallas.edu/calendar/event.php?id=1220444382&amp;WT.mc_id=CalendarFeed">Library Workshop: Evaluating Sources</a></p>
+      <p><a href="https://www.utdallas.edu/calendar/event.php?id=1220444202&amp;WT.mc_id=CalendarFeed">Mango! languages</a></p>
+  </div>
+
+</div>
+</div>
+<footer>
+<p>Eugene McDermott Library</p>
+<p>800 West Campbell Road </p>
+<p>Richardson, TX 75080</p>
+<p>PH: 972.883.2955
+</p>
+</footer>
+
+
+
+</body></html>
